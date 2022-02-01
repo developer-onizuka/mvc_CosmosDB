@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee-azure-svc
+  labels:
+    app: employee-azure-svc
+spec:
+#  type: NodePort
+  ports:
+  - port: 5001
+    targetPort: 5001
+    protocol: TCP
+    name: https
+  - port: 5000
+    targetPort: 5000
+    protocol: TCP
+    name: http
+  selector:
+    app: employee-azure
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-azure
+spec:
+  selector:
+    matchLabels:
+      app: employee-azure
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: employee-azure
+    spec:
+      containers:
+      - name: employee
+        image: developeronizuka/employee:1.0.0
+        ports:
+        - containerPort: 5001
+        - containerPort: 5000
+        env:
+        - name: MONGO
+          #value: 'mongo-0'
+          #value: 'mongo-0:27017,mongo-1:27017,mongo-2:27017/?replicaSet=myReplicaSet'
+          #value: 192.168.33.30:27017,192.168.33.31:27017,192.168.33.32:27017/?replicaSet=myReplicaSet
+          valueFrom:
+            secretKeyRef:
+              name: connectionstring
+              key: secretenv
