@@ -9,7 +9,7 @@
 - Step4: Copy the PRIMARY CONNECTION STRING which starts with "mongodb://".
 
 # 2. Create text file of secret of PRIMARY CONNECTION STRING
-What you paste to the text file is just ot the strings followed "mongodb://".
+What you paste to the text file is just the strings followed "mongodb://".
 ```
 $ cat connection-string.txt 
 myfirstcosmosdb:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX==@myfirstcosmosdb.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@myfirstcosmosdb@
