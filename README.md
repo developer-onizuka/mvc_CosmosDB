@@ -8,6 +8,8 @@
 - Step3: Select Azure Cosmos DB API for MongoDB.
 - Step4: Copy the PRIMARY CONNECTION STRING which starts with "mongodb://".
 
+![cosmosdb1.png](https://github.com/developer-onizuka/mvc_CosmosDB/blob/main/cosmosdb1.png)
+
 # 2. Create text file of secret of PRIMARY CONNECTION STRING
 What you paste to the text file is just the strings followed "mongodb://".
 ```
