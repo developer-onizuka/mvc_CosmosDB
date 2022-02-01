@@ -18,6 +18,7 @@ myfirstcosmosdb:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 # 3. Create secret resouce in kubernetes cluster
 ```
 $ kubectl create secret generic connectionstring --from-file=secretenv=./connection-string.txt
+$ rm -f connection-string.txt
 $ kubectl describe secrets connectionstring 
 Name:         connectionstring
 Namespace:    default
