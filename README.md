@@ -108,3 +108,4 @@ tracing                 ClusterIP      10.111.142.142   <none>           80/TCP,
 zipkin                  ClusterIP      10.101.75.155    <none>           9411/TCP                                                          18d
 ```
 
+![cosmosdb6.png](https://github.com/developer-onizuka/mvc_CosmosDB/blob/main/cosmosdb6.png)
