@@ -10,7 +10,7 @@
 
 ![cosmosdb1.png](https://github.com/developer-onizuka/mvc_CosmosDB/blob/main/cosmosdb1.png)
 
-# 2. Create text file of secret of PRIMARY CONNECTION STRING
+# 2. Make the secret file of PRIMARY CONNECTION STRING to access the CosmosDB you created
 What you paste to the text file is just the strings followed "mongodb://".
 ```
 $ cat <<EOF > connection-string.txt 
@@ -18,7 +18,7 @@ myfirstcosmosdb:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 EOF
 ```
 
-# 3. Create secret resouce in kubernetes cluster
+# 3. Create a secret resouce in kubernetes cluster
 You can remove the file written secret after creating secret resource in kubernetes cluseter, immediately.
 ```
 $ kubectl create secret generic connectionstring --from-file=secretenv=./connection-string.txt
@@ -85,7 +85,7 @@ nginx-azure-587c6698b9-k6chb      2/2     Running   0          5s
 nginx-azure-587c6698b9-qzpv4      2/2     Running   0          5s
 ```
 
-# 9. Check services
+# 9. Check if which services are invoked
 ```
 $ kubectl get services -o wide
 NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE   SELECTOR
