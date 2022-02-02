@@ -3,7 +3,7 @@
 
 # 1. Create Azure Cosmos DB API for MongoDB
 
-- Step1: On the Azure portal menu (https://portal.azure.com),Select Create a resource.
+- Step1: On the Azure portal menu (https://portal.azure.com), Select Create a resource.
 - Step2: Select Databases, and then select Azure Cosmos DB.
 - Step3: Select Azure Cosmos DB API for MongoDB.
 - Step4: Copy the PRIMARY CONNECTION STRING which starts with "mongodb://".
