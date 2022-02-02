@@ -13,9 +13,8 @@
 # 2. Make the secret file of PRIMARY CONNECTION STRING to access the CosmosDB you created
 What you paste to the text file is just the strings followed "mongodb://".
 ```
-$ cat <<EOF > connection-string.txt 
+$ vi connection-string.txt 
 myfirstcosmosdb:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX==@myfirstcosmosdb.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@myfirstcosmosdb@
-EOF
 ```
 
 # 3. Create a secret resouce in kubernetes cluster
