@@ -113,7 +113,7 @@ kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP         
 nginx-azure-svc      ClusterIP   10.102.208.104   <none>        8080/TCP            81s   app=nginx-azure
 ```
 
-# 10. Let's Access to it
+# 11. Let's Access to it
 Find the IP address of istio-azuregateway. In this case, it is 192.168.33.223.
 ```
 $ kubectl get services -n istio-system
