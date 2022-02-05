@@ -35,7 +35,41 @@ Data
 secretenv:  269 bytes
 ```
 
-# 4. Create deployment of "Employee Web app" with 2 repricas connecting Azure CosmosDB
+# 4. Create IngressGateway for this purpose
+```
+$ git clone https://github.com/developer-onizuka/mvc_CosmosDB
+$ cd mvc_CosmosDB
+$ istioctl install -y -f azure-gateway.yaml 
+✔ Ingress gateways installed                                                                                                                                      
+✔ Installation complete                                                                                                                                           
+
+$ kubectl get pods -n istio-system
+NAME                                     READY   STATUS    RESTARTS      AGE
+grafana-5fb899f96-67d5f                  1/1     Running   1 (8d ago)    21d
+istio-azuregateway-67d6d7d84f-fznfr      1/1     Running   0             27s
+istio-eastwestgateway-7c8db99c44-fjbfd   1/1     Running   1 (14d ago)   21d
+istio-ingressgateway-779cd8d9fb-6bxns    1/1     Running   1 (14d ago)   21d
+istiod-7d5ddd8fcf-6bcq9                  1/1     Running   1 (8d ago)    21d
+jaeger-d7849fb76-hsbqq                   1/1     Running   1 (8d ago)    21d
+kiali-c9d6f75d5-vjvv5                    1/1     Running   1 (14d ago)   21d
+prometheus-d7df8c957-9tkwd               2/2     Running   2 (8d ago)    21d
+
+$ kubectl get services -n istio-system
+NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                                                           AGE
+grafana                 ClusterIP      10.103.59.87     <none>           3000/TCP                                                          21d
+istio-azuregateway      LoadBalancer   10.103.187.59    192.168.33.223   15021:30238/TCP,443:32535/TCP,80:31476/TCP                        37s
+istio-eastwestgateway   LoadBalancer   10.109.178.196   192.168.33.221   15021:30600/TCP,15443:31534/TCP,15012:31242/TCP,15017:30426/TCP   21d
+istio-ingressgateway    LoadBalancer   10.110.212.70    192.168.33.220   15021:31932/TCP,80:30217/TCP,443:31930/TCP                        21d
+istiod                  ClusterIP      10.111.13.175    <none>           15010/TCP,15012/TCP,443/TCP,15014/TCP                             21d
+jaeger-collector        ClusterIP      10.101.9.249     <none>           14268/TCP,14250/TCP,9411/TCP                                      21d
+kiali                   LoadBalancer   10.107.184.95    192.168.33.222   20001:32532/TCP,9090:32092/TCP                                    21d
+prometheus              ClusterIP      10.109.69.225    <none>           9090/TCP                                                          21d
+tracing                 ClusterIP      10.111.142.142   <none>           80/TCP,16685/TCP                                                  21d
+zipkin                  ClusterIP      10.101.75.155    <none>           9411/TCP                                                          21d
+
+```
+
+# 5. Create deployment of "Employee Web app" with 2 repricas connecting Azure CosmosDB
 ```
 $ kubectl apply -f employee-azure-cosmosdb.yaml 
 service/employee-azure-svc created
