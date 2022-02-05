@@ -53,20 +53,6 @@ istiod-7d5ddd8fcf-6bcq9                  1/1     Running   1 (8d ago)    21d
 jaeger-d7849fb76-hsbqq                   1/1     Running   1 (8d ago)    21d
 kiali-c9d6f75d5-vjvv5                    1/1     Running   1 (14d ago)   21d
 prometheus-d7df8c957-9tkwd               2/2     Running   2 (8d ago)    21d
-
-$ kubectl get services -n istio-system
-NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                                                           AGE
-grafana                 ClusterIP      10.103.59.87     <none>           3000/TCP                                                          21d
-istio-azuregateway      LoadBalancer   10.103.187.59    192.168.33.223   15021:30238/TCP,443:32535/TCP,80:31476/TCP                        37s
-istio-eastwestgateway   LoadBalancer   10.109.178.196   192.168.33.221   15021:30600/TCP,15443:31534/TCP,15012:31242/TCP,15017:30426/TCP   21d
-istio-ingressgateway    LoadBalancer   10.110.212.70    192.168.33.220   15021:31932/TCP,80:30217/TCP,443:31930/TCP                        21d
-istiod                  ClusterIP      10.111.13.175    <none>           15010/TCP,15012/TCP,443/TCP,15014/TCP                             21d
-jaeger-collector        ClusterIP      10.101.9.249     <none>           14268/TCP,14250/TCP,9411/TCP                                      21d
-kiali                   LoadBalancer   10.107.184.95    192.168.33.222   20001:32532/TCP,9090:32092/TCP                                    21d
-prometheus              ClusterIP      10.109.69.225    <none>           9090/TCP                                                          21d
-tracing                 ClusterIP      10.111.142.142   <none>           80/TCP,16685/TCP                                                  21d
-zipkin                  ClusterIP      10.101.75.155    <none>           9411/TCP                                                          21d
-
 ```
 
 # 5. Create deployment of "Employee Web app" with 2 repricas connecting Azure CosmosDB
@@ -88,19 +74,19 @@ The environment of MONGO is for setting a connection string, but in this case it
               key: secretenv
 ```
 
-# 5. Create Ingress Gateway for accessing from outside of the Cluster
+# 6. Create Ingress Gateway for accessing from outside of the Cluster
 ```
 $ kubectl apply -f ingress-gateway.yaml 
 gateway.networking.istio.io/employee-gateway created
 ```
 
-# 6. Create Nginx's config files and Configmap
+# 7. Create Nginx's config files and Configmap
 ```
 $ kubectl create configmap nginx-azure-config --from-file=default-azure.conf 
 configmap/nginx-azure-config created
 ```
 
-# 7. Create depolyment of Nginx with 2 repricas
+# 8. Create depolyment of Nginx with 2 repricas
 ```
 $ kubectl apply -f nginx-azure.yaml 
 virtualservice.networking.istio.io/nginx-azure-vsvc created
@@ -108,7 +94,7 @@ service/nginx-azure-svc created
 deployment.apps/nginx-azure created
 ```
 
-# 8. Check if all of pods are available
+# 9. Check if all of pods are available
 ```
 $ kubectl get pods
 NAME                              READY   STATUS    RESTARTS   AGE
@@ -118,7 +104,7 @@ nginx-azure-587c6698b9-k6chb      2/2     Running   0          5s
 nginx-azure-587c6698b9-qzpv4      2/2     Running   0          5s
 ```
 
-# 9. Check if which services are invoked
+# 10. Check if which services are invoked
 ```
 $ kubectl get services -o wide
 NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE   SELECTOR
@@ -128,19 +114,20 @@ nginx-azure-svc      ClusterIP   10.102.208.104   <none>        8080/TCP        
 ```
 
 # 10. Let's Access to it
-Find the IP address of Istio-ingressgateway. In this case, it is 192.168.33.220.
+Find the IP address of istio-azuregateway. In this case, it is 192.168.33.223.
 ```
-$ kubectl get services -n istio-system 
+$ kubectl get services -n istio-system
 NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                                                           AGE
-grafana                 ClusterIP      10.103.59.87     <none>           3000/TCP                                                          18d
-istio-eastwestgateway   LoadBalancer   10.109.178.196   192.168.33.221   15021:30600/TCP,15443:31534/TCP,15012:31242/TCP,15017:30426/TCP   18d
-istio-ingressgateway    LoadBalancer   10.110.212.70    192.168.33.220   15021:31932/TCP,80:30217/TCP,443:31930/TCP                        18d
-istiod                  ClusterIP      10.111.13.175    <none>           15010/TCP,15012/TCP,443/TCP,15014/TCP                             18d
-jaeger-collector        ClusterIP      10.101.9.249     <none>           14268/TCP,14250/TCP,9411/TCP                                      18d
-kiali                   LoadBalancer   10.107.184.95    192.168.33.222   20001:32532/TCP,9090:32092/TCP                                    18d
-prometheus              ClusterIP      10.109.69.225    <none>           9090/TCP                                                          18d
-tracing                 ClusterIP      10.111.142.142   <none>           80/TCP,16685/TCP                                                  18d
-zipkin                  ClusterIP      10.101.75.155    <none>           9411/TCP                                                          18d
+grafana                 ClusterIP      10.103.59.87     <none>           3000/TCP                                                          21d
+istio-azuregateway      LoadBalancer   10.103.187.59    192.168.33.223   15021:30238/TCP,443:32535/TCP,80:31476/TCP                        37s
+istio-eastwestgateway   LoadBalancer   10.109.178.196   192.168.33.221   15021:30600/TCP,15443:31534/TCP,15012:31242/TCP,15017:30426/TCP   21d
+istio-ingressgateway    LoadBalancer   10.110.212.70    192.168.33.220   15021:31932/TCP,80:30217/TCP,443:31930/TCP                        21d
+istiod                  ClusterIP      10.111.13.175    <none>           15010/TCP,15012/TCP,443/TCP,15014/TCP                             21d
+jaeger-collector        ClusterIP      10.101.9.249     <none>           14268/TCP,14250/TCP,9411/TCP                                      21d
+kiali                   LoadBalancer   10.107.184.95    192.168.33.222   20001:32532/TCP,9090:32092/TCP                                    21d
+prometheus              ClusterIP      10.109.69.225    <none>           9090/TCP                                                          21d
+tracing                 ClusterIP      10.111.142.142   <none>           80/TCP,16685/TCP                                                  21d
+zipkin                  ClusterIP      10.101.75.155    <none>           9411/TCP                                                          21d
 ```
 
 ![cosmosdb4.png](https://github.com/developer-onizuka/mvc_CosmosDB/blob/main/cosmosdb4.png)
