@@ -1,0 +1,37 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: azure-gateway
+spec:
+  revision: ""
+  profile: empty
+  components:
+    ingressGateways:
+      - name: istio-azuregateway
+        label:
+          istio: azuregateway
+          app: istio-azuregateway
+          topology.istio.io/network: kube-network
+        enabled: true
+        k8s:
+          env:
+            # traffic through this gateway should be routed inside the network
+            - name: ISTIO_META_REQUESTED_NETWORK_VIEW
+              value: kube-network
+          service:
+            ports:
+              - name: status-port
+                port: 15021
+                targetPort: 15021
+              - name: https
+                port: 443
+                targetPort: 8443
+              - name: http2
+                port: 80
+                targetPort: 8080
+  values:
+    gateways:
+      istio-ingressgateway:
+        injectionTemplate: gateway
+    global:
+      network: kube-network

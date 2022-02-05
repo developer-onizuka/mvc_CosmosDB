@@ -4,7 +4,7 @@ metadata:
   name: employee-gateway
 spec:
   selector:
-    istio: ingressgateway # use Istio default gateway implementation
+    istio: azuregateway 
   servers:
   - port:
       number: 80
