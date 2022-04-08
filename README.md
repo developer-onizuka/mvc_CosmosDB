@@ -61,7 +61,7 @@ $ kubectl apply -f employee-azure-cosmosdb.yaml
 service/employee-azure-svc created
 deployment.apps/employee-azure created
 ```
-The environment of MONGO is for setting a connection string, but in this case it is a secret of PRIMARY CONNECTION STRING, especially as like below:
+The environment of MONGO is for setting a connection string, but in this case it uses a secret of PRIMARY CONNECTION STRING, especially as like below:
 ```
         env:
         - name: MONGO
